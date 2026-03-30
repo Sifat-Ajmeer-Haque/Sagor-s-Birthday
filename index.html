@@ -3,108 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Sagor!</title>
+    <title>Sagor's Birthday Tufan</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #000;
-            color: #fff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            cursor: pointer;
+            margin: 0; padding: 0; background-color: #000; color: #fff;
+            font-family: 'Arial', sans-serif; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; cursor: pointer;
         }
 
-        /* 1. Logo Section (Intro) */
-        #logo-screen {
-            text-align: center;
-            animation: fadeOut 1.5s forwards 4s;
-        }
+        #logo-screen { text-align: center; animation: fadeOut 1.5s forwards 4s; }
+        .logo { font-size: 4rem; color: #ff4500; text-shadow: 0 0 20px #ffea00; letter-spacing: 5px; }
 
-        .logo {
-            font-size: clamp(3rem, 10vw, 6rem);
-            font-weight: 900;
-            color: #ff4500;
-            text-shadow: 0 0 30px #ffea00, 4px 4px 10px #000;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-        }
+        #main-content { opacity: 0; display: none; text-align: center; }
+        .celebrity-photo { max-width: 80%; border: 5px solid #fff; border-radius: 15px; }
 
-        /* 2. Main Content (Celebrity Car Photo) */
-        #main-content {
-            opacity: 0;
-            display: none;
-            text-align: center;
-        }
-
-        .celebrity-photo {
-            max-width: 90%;
-            max-height: 75vh;
-            border: 6px solid #fff;
-            border-radius: 20px;
-            box-shadow: 0 0 60px rgba(255, 215, 0, 0.4);
-            transition: transform 0.5s;
-        }
-
-        /* 3. Surprise Button */
         #surprise-btn {
-            margin-top: 25px;
-            padding: 18px 45px;
-            font-size: 1.6rem;
-            background: linear-gradient(45deg, #d4145a, #fbb03b);
-            color: white;
-            border: none;
-            border-radius: 60px;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(212, 20, 90, 0.5);
-            display: none;
-            font-weight: bold;
-            text-transform: uppercase;
+            margin-top: 20px; padding: 15px 30px; font-size: 1.5rem;
+            background: linear-gradient(45deg, #ff0000, #ff8c00);
+            color: white; border: none; border-radius: 50px; cursor: pointer;
+            display: none; animation: fadeIn 2s forwards;
         }
 
-        #surprise-btn:hover {
-            transform: scale(1.1) rotate(-2deg);
-        }
+        #video-container { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 100; }
+        video { width: 100%; height: 100%; }
 
-        /* 4. Video Player Layer */
-        #video-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: black;
-            z-index: 1000;
-        }
-
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        /* Animations */
         @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <div id="logo-screen">
         <h1 class="logo">AAGUN-ER TUFAN</h1>
-        <p style="font-size: 1.2rem; letter-spacing: 2px;">PRESENTS</p>
-        <p style="color: #ffea00; margin-top: 20px;">(Click anywhere to ignite the party! 🔥)</p>
+        <p>TAP ANYWHERE TO START MUSIC 🎵</p>
     </div>
 
     <div id="main-content">
-        <img src="your-celebrity-car-photo.jpg.png" alt="Sagor with World Legends" class="celebrity-photo">
+        <img src="your-celebrity-car-photo.jpg.png" class="celebrity-photo" onerror="this.src='https://via.placeholder.com/800x400?text=Image+Not+Found+Check+Filename'">
         <br>
-        <button id="surprise-btn">OPEN BIRTHDAY GIFT 🎁</button>
+        <button id="surprise-btn">CLICK FOR A SURPRISE! 🎁</button>
     </div>
 
     <div id="video-container">
@@ -118,36 +56,30 @@
     </audio>
 
     <script>
-        const logoScreen = document.getElementById('logo-screen');
-        const mainContent = document.getElementById('main-content');
-        const surpriseBtn = document.getElementById('surprise-btn');
-        const videoContainer = document.getElementById('video-container');
-        const video = document.getElementById('birthday-video');
         const music = document.getElementById('bg-music');
+        const video = document.getElementById('birthday-video');
 
-        // ১. শুরুতে ক্লিক করলে মিউজিক চালু হবে এবং গানটি পুরোটা বাজবে
+        // অডিও চালু করার জন্য ক্লিক ইভেন্ট
         document.body.addEventListener('click', () => {
-            music.play().catch(e => console.log("Audio play allowed after interaction"));
+            music.play();
         }, { once: true });
 
-        // ২. ৫ সেকেন্ড ইনট্রো চলার পর মেইন ফটো আসবে
+        // ট্রানজিশন
         setTimeout(() => {
-            logoScreen.style.display = 'none';
-            mainContent.style.display = 'block';
-            mainContent.style.animation = 'fadeIn 2s forwards';
+            document.getElementById('logo-screen').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('main-content').style.animation = 'fadeIn 2s forwards';
             
-            // ৩. ফটো আসার ২ সেকেন্ড পর বাটন আসবে
             setTimeout(() => {
-                surpriseBtn.style.display = 'inline-block';
-                surpriseBtn.style.animation = 'fadeIn 1s forwards';
-            }, 2000);
+                document.getElementById('surprise-btn').style.display = 'inline-block';
+            }, 3000);
         }, 5500);
 
-        // ৪. সারপ্রাইজ বাটন ক্লিক করলে গান বন্ধ হয়ে ভিডিও শুরু হবে
-        surpriseBtn.addEventListener('click', (e) => {
+        // ভিডিওর জন্য বাটন ক্লিক
+        document.getElementById('surprise-btn').addEventListener('click', (e) => {
             e.stopPropagation();
             music.pause();
-            videoContainer.style.display = 'block';
+            document.getElementById('video-container').style.display = 'block';
             video.play();
         });
     </script>
